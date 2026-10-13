@@ -1,6 +1,11 @@
 import Creature from './Creature.jsx';
+import { useState,useEffect } from 'react';
 
 function CreatureField() {
+    const [background, setBackground] = useState( '#6b8c66');
+    const [isSleeping, setIsSleeping] = useState([false, false, false, false, false]);
+    
+
     const creatureData =[
         {
             id: 1, name: "Mr. Fresh", age: 3,
@@ -40,12 +45,27 @@ function CreatureField() {
         height: '800px',
         border: '2px solid #ccc',
         margin: '20px auto',
-        backgroundColor: '#6b8c66'
+        backgroundColor: background
     };
+    
+    useEffect(() => {
+      
+        
+        const allSleeping = isSleeping.every(status => status === true);
+    
+        if (allSleeping) { 
+          setBackground("#0000FF"); 
+          console.log("All creatures are sleeping"); 
+        } else {
+          
+          setBackground('#6b8c66'); 
+        } 
+    },[isSleeping]);
+   
 
     return (
         <div style={fieldStyle}>
-            {creatureData.map(creature => (
+            {creatureData.map((creature, index) => (
                 <Creature
                     key={creature.id}
                     name={creature.name}
@@ -53,6 +73,12 @@ function CreatureField() {
                     sleepImageUrl={creature.sleepImageUrl}
                     awakeImageUrl={creature.awakeImageUrl}
                     x={creature.x} y={creature.y}
+                    isSleeping={isSleeping[index]}
+                    onAutoSleep={(isSleeping2) => {
+                        const newIsSleeping = [...isSleeping];
+                        newIsSleeping[index] = isSleeping2;
+                        setIsSleeping(newIsSleeping);
+                    }}
                 />
             ))} 
         </div>
