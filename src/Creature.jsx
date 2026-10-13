@@ -15,6 +15,9 @@ function Creature(props) {
         <div style={style}>
             <img src={props.sleepImageUrl} alt={props.name} width="120" />
             <p>{props.name}, age {props.age}</p>
+            <button onClick={() => setIsSleeping(!isSleeping)}>
+                
+            </button>
         </div>
     );
 }
