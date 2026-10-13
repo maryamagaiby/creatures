@@ -13,11 +13,8 @@ function Creature(props) {
 
     return (
         <div style={style}>
-            <img src={props.sleepImageUrl} alt={props.name} width="120" />
+            <img onClick={() => setIsSleeping(!isSleeping) } src={isSleeping? props.awakeImageUrl : props.sleepImageUrl} alt={props.name} width="120" />
             <p>{props.name}, age {props.age}</p>
-            <button onClick={() => setIsSleeping(!isSleeping)}>
-                
-            </button>
         </div>
     );
 }
